@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CameraActivity extends Activity {
 
@@ -17,10 +16,9 @@ public class CameraActivity extends Activity {
         Intent intent = getIntent();
         Camera camera = (Camera) intent.getExtras().get("camera");
 
-        TextView cameraName = (TextView) findViewById(R.id.cameraName);
-        ImageView cameraImage = (ImageView) findViewById(R.id.camera);
+        TextView cameraName = findViewById(R.id.cameraName);
+        ImageView cameraImage = findViewById(R.id.camera);
         cameraName.setText(camera.getName());
-        Toast.makeText(this, camera.getImg(), Toast.LENGTH_LONG).show();
-        //new ImageDownloader(cameraImage).execute(camera.getImg());
+        new ImageDownloader(cameraImage).execute(camera.getImg());
     }
 }

@@ -2,7 +2,6 @@ package ca.bcit.ass1.newwesttraffictracker;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
@@ -25,6 +24,7 @@ class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected Bitmap doInBackground(String... params) {
+        System.out.println(params[0]);
         return downloadBitmap(params[0]);
     }
 
@@ -40,8 +40,6 @@ class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
                 if (bitmap != null) {
                     imageView.setImageBitmap(bitmap);
                 } else {
-                    //Drawable placeholder = imageView.getContext().getResources().getDrawable(R.drawable.placeholder);
-                    //imageView.setImageDrawable(placeholder);
                     imageView.setImageResource(R.drawable.placeholder);
 
                 }
@@ -56,12 +54,14 @@ class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
             urlConnection = (HttpURLConnection) uri.openConnection();
             int statusCode = urlConnection.getResponseCode();
             if (statusCode != HttpURLConnection.HTTP_OK) {
+                Log.e("ImageDownloader", "Error connecting to url, status " + statusCode);
                 return null;
             }
 
             InputStream inputStream = urlConnection.getInputStream();
             if (inputStream != null) {
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                Log.d("ImageDownloader", "Success");
                 return bitmap;
             }
         } catch (Exception e) {

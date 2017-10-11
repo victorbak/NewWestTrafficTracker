@@ -1,20 +1,12 @@
 package ca.bcit.ass1.newwesttraffictracker;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,7 +18,6 @@ import java.util.ArrayList;
 
 public class CameraListActivity extends ListActivity {
 
-    private String TAG = MainActivity.class.getSimpleName();
     private ArrayList<Camera> cameraList;
     private static String SERVICE_URL = "http://opendata.newwestcity.ca/downloads/webcam-links/WEBCAM_LINKS.csv";
 
