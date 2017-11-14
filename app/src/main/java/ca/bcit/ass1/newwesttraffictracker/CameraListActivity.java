@@ -23,9 +23,7 @@ public class CameraListActivity extends ListActivity {
         Intent intent = new Intent(this, CameraActivity.class);
         intent.putExtra("index", index);
         Camera click = Camera.cameras.get(index);
-        if (click.getBitmap() == null) {
-            new ImageDownloader(click).execute(click.getImgUrl());
-        }
+        //click.refreshCamera();
         startActivity(intent);
     }
 

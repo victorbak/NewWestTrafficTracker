@@ -19,9 +19,11 @@ public class CameraActivity extends Activity {
         TextView cameraName = findViewById(R.id.cameraName);
         ImageView cameraImage = findViewById(R.id.camera);
         cameraName.setText(camera.getName());
-        if (camera.getBitmap() == null) {
-            new ImageDownloader(camera).execute(camera.getImgUrl());
+
+        if (camera.needsRefresh()) {
+            new ImageDownloader(camera, cameraImage).execute(camera.getImgUrl());
+        } else {
+            cameraImage.setImageBitmap(camera.getBitmap());
         }
-        cameraImage.setImageBitmap(camera.getBitmap());
     }
 }

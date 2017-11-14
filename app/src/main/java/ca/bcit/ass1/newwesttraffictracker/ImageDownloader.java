@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -14,9 +15,11 @@ import java.net.URL;
  */
 class ImageDownloader extends AsyncTask<String, Void, Void> {
     private Camera cam;
+    ImageView view;
 
-    public ImageDownloader(Camera camera) {
+    public ImageDownloader(Camera camera, ImageView view) {
         cam = camera;
+        this.view = view;
     }
 
     @Override
@@ -24,6 +27,13 @@ class ImageDownloader extends AsyncTask<String, Void, Void> {
         System.out.println(params[0]);
         cam.setBitmap(downloadBitmap(params[0]));
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void v){
+        view.setImageBitmap(cam.getBitmap());
+        view.invalidate();
+        cam.setImageTime(System.nanoTime());
     }
 
     private Bitmap downloadBitmap(String url) {

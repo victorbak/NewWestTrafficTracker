@@ -1,8 +1,12 @@
 package ca.bcit.ass1.newwesttraffictracker;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +19,7 @@ public class Camera {
     private String imgUrl;
     private Bitmap bitmap;
     private long imageTime;
+    private static final long MIN_5 = 5 * 60 * 1000000000;
     public static ArrayList<Camera> cameras;
 
     public Camera(String name, String url) {
@@ -26,21 +31,11 @@ public class Camera {
         bitmap = null;
     }
 
-    public void refreshCamera() {
-        if (bitmap == null) {
-            Log.d("Camera", "Camera is null");
-            if ((System.nanoTime() - imageTime) >= (5 * 60 * 1000000000)) {
-                Log.d("Camera", "Camera is old");
-            }
+    public boolean needsRefresh() {
+        if (imageTime == 0) {
+            return (bitmap == null);
         }
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+        return ((System.nanoTime() - imageTime) / 1000000000) > 60;
     }
 
     public String getName() {
@@ -55,16 +50,20 @@ public class Camera {
         return imgUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
     public Bitmap getBitmap() {
         return bitmap; }
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
         imageTime = System.nanoTime();
+    }
+
+    public long getImageTime() {
+        return imageTime;
+    }
+
+    public void setImageTime(long imageTime) {
+        this.imageTime = imageTime;
     }
 
     @Override
