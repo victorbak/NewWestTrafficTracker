@@ -4,47 +4,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
  * Created by Robbie on 10-Oct-2017.
  */
+class ImageDownloader extends AsyncTask<String, Void, Void> {
+    private Camera cam;
 
-class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-    private final WeakReference<ImageView> imageViewReference;
-
-    public ImageDownloader(ImageView imageView) {
-        imageViewReference = new WeakReference<ImageView>(imageView);
+    public ImageDownloader(Camera camera) {
+        cam = camera;
     }
 
     @Override
-    protected Bitmap doInBackground(String... params) {
+    protected Void doInBackground(String... params) {
         System.out.println(params[0]);
-        return downloadBitmap(params[0]);
-    }
-
-    @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        if (isCancelled()) {
-            bitmap = null;
-        }
-
-        if (imageViewReference != null) {
-            ImageView imageView = imageViewReference.get();
-            if (imageView != null) {
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                } else {
-                    imageView.setImageResource(R.drawable.placeholder);
-
-                }
-            }
-        }
+        cam.setBitmap(downloadBitmap(params[0]));
+        return null;
     }
 
     private Bitmap downloadBitmap(String url) {

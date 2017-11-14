@@ -1,23 +1,38 @@
 package ca.bcit.ass1.newwesttraffictracker;
 
-import java.io.Serializable;
+import android.graphics.Bitmap;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by Robbie on 10-Oct-2017.
  */
-
-public class Camera implements Serializable {
+public class Camera {
 
     private String name;
     private String url;
-    private String img;
+    private String imgUrl;
+    private Bitmap bitmap;
+    private long imageTime;
+    public static ArrayList<Camera> cameras;
 
     public Camera(String name, String url) {
         this.name = name;
         this.url = url;
         String temp = url.replaceAll("/html/www/", "/cameras/");
         temp = temp.replaceAll(".html", ".jpg");
-        img = temp;
+        imgUrl = temp;
+        bitmap = null;
+    }
+
+    public void refreshCamera() {
+        if (bitmap == null) {
+            Log.d("Camera", "Camera is null");
+            if ((System.nanoTime() - imageTime) >= (5 * 60 * 1000000000)) {
+                Log.d("Camera", "Camera is old");
+            }
+        }
     }
 
     public String getUrl() {
@@ -36,12 +51,20 @@ public class Camera implements Serializable {
         this.name = name;
     }
 
-    public String getImg() {
-        return img;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap; }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+        imageTime = System.nanoTime();
     }
 
     @Override
