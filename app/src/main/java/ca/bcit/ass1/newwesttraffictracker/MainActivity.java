@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private class GetCameras extends AsyncTask<Void, Void, Void> {
+    private class GetCameras extends AsyncTask<Void, Void, Boolean> {
         private ArrayList<Camera> list;
         @Override
-        protected Void doInBackground(Void... arg0) {
+        protected Boolean doInBackground(Void... arg0) {
             list = new ArrayList<>();
             URL url;
             URLConnection connection;
@@ -58,21 +59,23 @@ public class MainActivity extends AppCompatActivity {
                 url = new URL(SERVICE_URL);
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                Log.e("GetCameras", "Cannot connect to URL");
+                return false;
             }
 
             try {
                 connection = url.openConnection();
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                Log.e("GetCameras", "Cannot connect to URL");
+                return false;
             }
 
             try {
                 input = new InputStreamReader(connection.getInputStream());
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                return false;
             }
             BufferedReader buffer = null;
             String line = "";
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             Camera.cameras = list;
-            return null;
+            return true;
         }
     }
 }

@@ -12,10 +12,15 @@ public class CameraListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayAdapter<Camera> adapter = new ArrayAdapter<>(CameraListActivity.this,
+
+        if (Camera.cameras == null) {
+            ArrayAdapter<Camera> adapter = new ArrayAdapter<>(CameraListActivity.this,
                     android.R.layout.simple_list_item_1, Camera.cameras);
             ListView view = getListView();
             view.setAdapter(adapter);
+        } else {
+
+        }
     }
 
     @Override
