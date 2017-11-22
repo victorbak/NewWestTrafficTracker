@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... arg0) {
             list = new ArrayList<>();
+            list.add(new Camera("Pattullo Bridge (South View)", "http://images.drivebc.ca/bchighwaycam/pub/html/www/679.html"));
+            list.add(new Camera("Queensborough Connector (North View)", "http://images.drivebc.ca/bchighwaycam/pub/html/www/732.html"));
+            list.add(new Camera("Alex Fraser Bridge Southbound", "http://images.drivebc.ca/bchighwaycam/pub/html/www/731.html"));
+            list.add(new Camera("Annacis Channel Bridge Approach (East View)", "http://images.drivebc.ca/bchighwaycam/pub/html/www/735.html"));
             URL url;
             URLConnection connection;
             InputStreamReader input;

@@ -3,6 +3,7 @@ package ca.bcit.ass1.newwesttraffictracker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +21,12 @@ public class CameraActivity extends Activity {
         ImageView cameraImage = findViewById(R.id.camera);
         cameraName.setText(camera.getName());
 
-        if (camera.needsRefresh()) {
-            new ImageDownloader(camera, cameraImage).execute(camera.getImgUrl());
-        } else {
-            cameraImage.setImageBitmap(camera.getBitmap());
-        }
+        camera.setImage(cameraImage);
+
+//        if (camera.needsRefresh()) {
+//            new ImageDownloader(camera, cameraImage).execute(camera.getImgUrl());
+//        } else {
+//            cameraImage.setImageBitmap(camera.getBitmap());
+//        }
     }
 }

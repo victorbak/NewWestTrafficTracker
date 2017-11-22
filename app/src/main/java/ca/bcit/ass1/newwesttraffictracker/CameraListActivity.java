@@ -13,13 +13,13 @@ public class CameraListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Camera.cameras == null) {
+        if (Camera.cameras != null) {
             ArrayAdapter<Camera> adapter = new ArrayAdapter<>(CameraListActivity.this,
                     android.R.layout.simple_list_item_1, Camera.cameras);
             ListView view = getListView();
             view.setAdapter(adapter);
         } else {
-
+            //Error Downloading message
         }
     }
 
@@ -27,9 +27,6 @@ public class CameraListActivity extends ListActivity {
     public void onListItemClick(ListView list, View view, int index, long id) {
         Intent intent = new Intent(this, CameraActivity.class);
         intent.putExtra("index", index);
-        Camera click = Camera.cameras.get(index);
-        //click.refreshCamera();
         startActivity(intent);
     }
-
 }

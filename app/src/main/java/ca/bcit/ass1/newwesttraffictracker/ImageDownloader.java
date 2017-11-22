@@ -13,7 +13,7 @@ import java.net.URL;
 /**
  * Created by Robbie on 10-Oct-2017.
  */
-class ImageDownloader extends AsyncTask<String, Void, Void> {
+class ImageDownloader extends AsyncTask<Void, Void, Void> {
     private Camera cam;
     ImageView view;
 
@@ -23,9 +23,8 @@ class ImageDownloader extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... params) {
-        System.out.println(params[0]);
-        cam.setBitmap(downloadBitmap(params[0]));
+    protected Void doInBackground(Void... params) {
+        cam.setBitmap(downloadBitmap(cam.getImgUrl()));
         return null;
     }
 

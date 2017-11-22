@@ -3,6 +3,9 @@ package ca.bcit.ass1.newwesttraffictracker;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -19,7 +22,7 @@ public class Camera {
     private String imgUrl;
     private Bitmap bitmap;
     private long imageTime;
-    private static final long MIN_5 = 5 * 60 * 1000000000;
+
     public static ArrayList<Camera> cameras;
 
     public Camera(String name, String url) {
@@ -51,7 +54,16 @@ public class Camera {
     }
 
     public Bitmap getBitmap() {
-        return bitmap; }
+        return bitmap;
+    }
+
+    public void setImage(ImageView imageView) {
+        if (needsRefresh()) {
+            new ImageDownloader(this, imageView).execute();
+        } else {
+            imageView.setImageBitmap(bitmap);
+        }
+    }
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
