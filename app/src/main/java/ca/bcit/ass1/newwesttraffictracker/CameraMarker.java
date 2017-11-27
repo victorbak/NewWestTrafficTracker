@@ -1,7 +1,14 @@
 package ca.bcit.ass1.newwesttraffictracker;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -11,13 +18,22 @@ import java.util.HashMap;
  * Created by Robbie on 21-Nov-2017.
  */
 
-public class CameraMarker {
+public class CameraMarker implements GoogleMap.OnMarkerClickListener {
 
     private LatLng coordinate;
     private Camera camera;
 
     private static HashMap<String, LatLng> hardcodedMarkers;
     private static ArrayList<CameraMarker> markers;
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if(markers.contains(marker)) {
+            Log.e("ok", "yup");
+            return true;
+        }
+        return false;
+    }
 
     public enum Direction{
         EAST,
@@ -45,6 +61,7 @@ public class CameraMarker {
         hardcodedMarkers.put("Queensborough Connector (North View)", new LatLng(49.175904, -122.960674));
         hardcodedMarkers.put("Alex Fraser Bridge Southbound", new LatLng(49.175255, -122.959490));
         hardcodedMarkers.put("Annacis Channel Bridge Approach (East View)", new LatLng(49.175955, -122.962165));
+
     }
 
     public static void makeMarkers() {
