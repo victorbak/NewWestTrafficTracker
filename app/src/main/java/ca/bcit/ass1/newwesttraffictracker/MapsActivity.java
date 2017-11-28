@@ -58,6 +58,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
+    //When marker is clicked
     public boolean onMarkerClick(Marker marker) {
         Log.e("marker", marker.getTitle());
         Intent intent = new Intent(this, CameraActivity.class);
