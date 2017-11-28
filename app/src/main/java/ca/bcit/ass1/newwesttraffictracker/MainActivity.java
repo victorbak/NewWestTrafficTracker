@@ -28,25 +28,18 @@ public class MainActivity extends AppCompatActivity {
         if (Camera.cameras == null) {
             new GetCameras().execute();
         }
-
-        Button listButton = (Button) findViewById(R.id.listButton);
-        Button mapButton = (Button) findViewById(R.id.mapsButton);
-
-        listButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, CameraListActivity.class);
-                startActivity(i);
-            }
-        });
-
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
+    public void mapsOnClick(View view) {
+        Intent i = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(i);
+    }
+
+    public void listOnClick(View view) {
+        Intent i = new Intent(MainActivity.this, CameraListActivity.class);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        startActivity(i);
+    }
     private class GetCameras extends AsyncTask<Void, Void, Boolean> {
         private ArrayList<Camera> list;
         @Override
