@@ -47,11 +47,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition(new LatLng(49.195579, -122.923757),
                         mMap.getMaxZoomLevel() - 9, 0, 0)));
-        myMarker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(49.188772, -122.946870))
-                .title("My Spot")
-                .snippet("This is my spot!")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         CameraMarker.placeMarkers(mMap);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setTrafficEnabled(true);
