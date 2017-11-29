@@ -1,5 +1,6 @@
 package ca.bcit.ass1.newwesttraffictracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity{
 
     private static String SERVICE_URL = "http://opendata.newwestcity.ca/downloads/webcam-links/WEBCAM_LINKS.csv";
 

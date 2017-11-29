@@ -25,6 +25,7 @@ public class CameraMarker implements GoogleMap.OnMarkerClickListener {
 
     private static HashMap<String, LatLng> hardcodedMarkers;
     private static ArrayList<CameraMarker> markers;
+    public static HashMap<String, String> cams;
 
     @Override
     public boolean onMarkerClick(Marker marker) {

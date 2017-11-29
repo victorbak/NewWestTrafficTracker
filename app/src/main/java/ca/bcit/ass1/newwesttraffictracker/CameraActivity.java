@@ -22,7 +22,7 @@ public class CameraActivity extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*.8), (int)(height*.4));
+        getWindow().setLayout((int)(width*.7), (int)(height*.4));
 
         Intent intent = getIntent();
 
